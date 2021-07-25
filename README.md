@@ -11,8 +11,9 @@ python3 -m venv ansible
 source ansible/bin/activate
 ```
 
-### Execute Playbook
+### Execute Playbook Example
 
 ```
-
+export ANSIBLE_HOST_KEY_CHECKING=False
+$ ansible-playbook -i inventory main.yaml --ask-pass --ask-become-pass
 ```
