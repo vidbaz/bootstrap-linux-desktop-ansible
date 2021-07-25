@@ -1,11 +1,4 @@
 ---
-#sudo add-apt-repository ppa:sebastian-stenzel/cryptomator
-
-  # - name: "install-cryptomator: add key from google"
-  #   become: yes
-  #   apt_key:
-  #     url: https://dl.google.com/linux/linux_signing_key.pub
-  #     state: present
   - name: "install-cryptomator: add official repo"
     become: yes
     apt_repository:
