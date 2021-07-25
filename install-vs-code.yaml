@@ -1,0 +1,32 @@
+---
+  - name: "install-visual-code: Add official repo from microsoft"
+    become: yes
+    apt_repository:
+      repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
+      state: present
+  - name: "install-visual-code: add apt signing key from official Microsoft GPG"
+    become: yes
+    apt_key:
+      url: https://packages.microsoft.com/keys/microsoft.asc
+      state: present
+  - name: "install-visual-code: Update the apt package index"
+    become: yes
+    apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+      force_apt_get: yes
+  - name: "install-visual-code: install packages for apt add repository over HTTPS"
+    become: yes
+    apt:
+      name: "{{ packagesdep }}"
+      force_apt_get: yes
+      state: latest
+      update_cache: yes
+    vars:
+      packagesdep:
+      - software-properties-common
+      - apt-transport-https
+      - curl
+      - code  #Installing vs code here
+...

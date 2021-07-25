@@ -1,0 +1,19 @@
+---
+# https://support.surfshark.com/hc/en-us/articles/360011051133-How-to-set-up-OpenVPN-using-Linux-Terminal
+# sudo wget https://my.surfshark.com/vpn/api/v1/server/configurations
+
+- name: "install-surfshark: create directory"
+  file:
+    path: "~/surfshark_openvpn"
+    state: directory
+- name: "install-surfshark: dowload profiles"    
+  get_url:
+    url: "https://my.surfshark.com/vpn/api/v1/server/configurations"
+    dest: "~/surfshark_openvpn"
+    mode: "0600"
+- name: "install-surfshark: unzip"
+  unarchive:
+    src: "~/surfshark_openvpn/Surfshark_Config.zip"
+    dest: ~/surfshark_openvpn
+
+...

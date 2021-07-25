@@ -1,0 +1,26 @@
+---
+- hosts: all
+  tasks:
+    - debug:
+        msg: task1
+    - name: "install general-packages"
+      import_tasks: install-general-packages.yaml
+      tags:
+        - "install-general-packages"
+    - name: "Install vs-code"
+      import_tasks: install-vs-code.yaml
+      tags:
+        - "install-vs-code"
+    - name: "Install Google Chrome"
+      import_tasks: install-chrome.yaml
+      tags:
+        - "install-chrome"
+    - name: "Install Surfshark Openvpn profiles"
+      import_tasks: install-surfshark.yaml
+      tags:
+        - "install-surfshark"
+    - name: "install cryptomator"
+      import_tasks: install-cryptomator.yaml
+      tags:
+        - "install-cryptomator"
+...

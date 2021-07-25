@@ -1,0 +1,26 @@
+---
+#sudo add-apt-repository ppa:sebastian-stenzel/cryptomator
+
+  # - name: "install-cryptomator: add key from google"
+  #   become: yes
+  #   apt_key:
+  #     url: https://dl.google.com/linux/linux_signing_key.pub
+  #     state: present
+  - name: "install-cryptomator: add official repo"
+    become: yes
+    apt_repository:
+      repo: "deb http://ppa.launchpad.net/sebastian-stenzel/cryptomator/ubuntu focal main"
+      state: present
+  - name: "install-cryptomator: index new repo into the cache"
+    become: yes
+    apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+      force_apt_get: yes
+  - name: "install-cryptomator: install"
+    become: yes
+    apt:
+      name: "cryptomator"
+      state: latest
+

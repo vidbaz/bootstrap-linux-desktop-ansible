@@ -1,0 +1,60 @@
+---
+
+  - name: "install-general-packages: Update the apt package index"
+    become: yes
+    apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+      force_apt_get: yes
+
+  - name: "install-general-packages: install basic packages"
+    become: yes
+    apt:
+      name: "{{ item }}"
+      force_apt_get: yes
+      update_cache: yes
+      state: latest
+    with_items:
+      - software-properties-common
+      - curl
+      - sendmail
+      - git
+      - nethogs
+      - nmap
+      - openssh-server
+      - net-tools
+      - tree
+      - default-jre
+      - openjdk-11-jdk
+      - bc
+      - wget
+      - unzip
+      - vim
+      - sshpass
+      - htop
+      - parted
+      - net-tools
+      - virtualbox 
+      - debconf-utils
+      - rclone  # for one-drive
+      - keepass2
+      - xdotool # to enable keepass autotype
+      - openvpn
+      - sysstat # to have sar and other tools | %ifutil: now gives the network interface utilization percentage https://github.com/sysstat/sysstat/blob/v12.5.4/CHANGES
+      - stacer  # task manager graphical https://oguzhaninan.github.io/Stacer-Web/
+      - vnstat # monitor network
+      - grub-customizer # working on mint, is for grub graphical editing
+      - telegram-desktop # working on mint
+      
+
+  - name: "install-general-packages: configure debconf-utils for silent virtuabox-extensions installation"
+    become: yes
+    shell: "echo virtualbox-ext-pack virtualbox-ext-pack/license select true | debconf-set-selections"
+
+  - name: "install-chrome: install virtualbox-ext-pack"
+    become: yes
+    apt:
+      name: "virtualbox-ext-pack"
+      state: latest
+    
