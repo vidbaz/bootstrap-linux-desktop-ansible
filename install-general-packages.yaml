@@ -52,7 +52,7 @@
     become: yes
     shell: "echo virtualbox-ext-pack virtualbox-ext-pack/license select true | debconf-set-selections"
 
-  - name: "install-chrome: install virtualbox-ext-pack"
+  - name: "install-general-packages: install virtualbox-ext-pack"
     become: yes
     apt:
       name: "virtualbox-ext-pack"
