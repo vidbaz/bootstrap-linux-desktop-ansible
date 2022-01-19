@@ -30,12 +30,12 @@
       - bc
       - wget
       - unzip
-      - vim
+      - vim         # Terminal sexy editor
       - sshpass
-      - htop
+      - htop        # Human version of top
       - parted
       - net-tools
-      - virtualbox 
+      - virtualbox  # Virtualization tool
       - debconf-utils
       - rclone  # for one-drive
       - keepass2
@@ -46,6 +46,7 @@
       - vnstat # monitor network
       - grub-customizer # working on mint, is for grub graphical editing
       - telegram-desktop # working on mint
+      - flameshot # screen capture
       
 
   - name: "install-general-packages: configure debconf-utils for silent virtuabox-extensions installation"

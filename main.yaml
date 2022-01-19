@@ -21,4 +21,8 @@
       import_tasks: install-cryptomator.yaml
       tags:
         - "install-cryptomator"
+    - name: "Install Signal"
+      import_tasks: install-signal.yaml
+      tags:
+        - "install-signal"
 ...

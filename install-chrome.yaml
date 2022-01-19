@@ -10,6 +10,7 @@
     apt_repository:
       repo: "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main"
       state: present
+      filename: "google-chrome"
   - name: "install-chrome: index new repo into the cache"
     become: yes
     apt:

@@ -1,16 +1,16 @@
 ---
+
+# sudo add-apt-repository ppa:sebastian-stenzel/cryptomator
+# Executing: /tmp/apt-key-gpghome.lERCDVyOZi/gpg.1.sh --keyserver hkps://keyserver.ubuntu.com:443 --recv-keys CD045438B0D383A4039EA86F892C15CD130FEB9A
+# gpg: key 892C15CD130FEB9A: public key "Launchpad PPA for Sebastian Stenzel" imported
   - name: "install-cryptomator: add official repo"
     become: yes
     apt_repository:
-      repo: "deb http://ppa.launchpad.net/sebastian-stenzel/cryptomator/ubuntu focal main"
+      repo: ppa:sebastian-stenzel/cryptomator
       state: present
-  - name: "install-cryptomator: index new repo into the cache"
-    become: yes
-    apt:
-      name: "*"
-      state: latest
+      filename: "cryptomator"
       update_cache: yes
-      force_apt_get: yes
+      codename: "focal"   # Needed for non-ubuntu distros (Debian, Mint) https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_repository_module.html#parameter-codename
   - name: "install-cryptomator: install"
     become: yes
     apt:

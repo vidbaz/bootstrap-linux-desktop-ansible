@@ -1,14 +1,15 @@
 ---
+  - name: "install-visual-code: Add apt signing key from official Microsoft GPG"
+    become: yes
+    apt_key:
+      url: https://packages.microsoft.com/keys/microsoft.asc
+      state: present
   - name: "install-visual-code: Add official repo from microsoft"
     become: yes
     apt_repository:
       repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
       state: present
-  - name: "install-visual-code: add apt signing key from official Microsoft GPG"
-    become: yes
-    apt_key:
-      url: https://packages.microsoft.com/keys/microsoft.asc
-      state: present
+      filename: "vscode"
   - name: "install-visual-code: Update the apt package index"
     become: yes
     apt:
