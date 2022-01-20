@@ -47,6 +47,7 @@
       - grub-customizer # working on mint, is for grub graphical editing
       - telegram-desktop # working on mint
       - flameshot # screen capture
+      - konsole   # KDE Terminal
       
 
   - name: "install-general-packages: configure debconf-utils for silent virtuabox-extensions installation"
