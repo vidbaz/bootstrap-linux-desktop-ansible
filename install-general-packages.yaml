@@ -48,6 +48,7 @@
       - telegram-desktop # working on mint
       - flameshot # screen capture
       - konsole   # KDE Terminal
+      - vagrant   # Virtualization
       
 
   - name: "install-general-packages: configure debconf-utils for silent virtuabox-extensions installation"
