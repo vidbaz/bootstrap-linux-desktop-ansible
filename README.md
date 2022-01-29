@@ -7,7 +7,7 @@ sudo apt-get install python3-venv ssh sshpass -y
 sudo mkdir python_envs
 cd python_envs
 python3 -m venv ansible
-source ansible/bin/activate
+source ~/python_envs/ansible/bin/activate
 ```
 
 ### Install ansible in the virtual env
@@ -19,9 +19,18 @@ ansible --version
 
 ### Execute Playbook Example
 ```
+#Activate enviroment (if not is already activated)
+source ~/python_envs/ansible/bin/activate
 export ANSIBLE_HOST_KEY_CHECKING=False
 $ ansible-playbook -i inventory main.yaml --ask-pass --ask-become-pass
 ```
+
+### Execute Playbook Example specify tags
+```
+export ANSIBLE_HOST_KEY_CHECKING=False
+$ ansible-playbook -i inventory main.yaml --ask-pass --diff --ask-become-pass --tags=config-kernel-parameters --check
+```
+
 
 
 ### Execute Playbook Example skipping tags

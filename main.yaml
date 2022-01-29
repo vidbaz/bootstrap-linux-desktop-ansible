@@ -29,4 +29,8 @@
       import_tasks: config-pulse-audio.yaml
       tags:
         - "config-pulse-audio"
+    - name: "config kernel parameters"
+      import_tasks: config-kernel-parameters.yaml
+      tags:
+        - "config-kernel-parameters"        
 ...
