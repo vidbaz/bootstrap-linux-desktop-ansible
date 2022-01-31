@@ -45,11 +45,10 @@
       - stacer  # task manager graphical https://oguzhaninan.github.io/Stacer-Web/
       - vnstat # monitor network
       - grub-customizer # working on mint, is for grub graphical editing
-      - telegram-desktop # working on mint
       - flameshot # screen capture
       - konsole   # KDE Terminal
       - vagrant   # Virtualization
-      
+      - numlockx  # Turn on NumLock on startup in Linux Mint in the Login window
 
   - name: "install-general-packages: configure debconf-utils for silent virtuabox-extensions installation"
     become: yes
@@ -61,3 +60,12 @@
       name: "virtualbox-ext-pack"
       state: latest
     
+  - name: "install-general-packages: configure numlock auto enable at startup"
+    become: yes
+    copy:
+      content: "{{ numlock_config }}"
+      dest: "/etc/lightdm/slick-greeter.conf" # https://unix.stackexchange.com/questions/275474/turn-on-numlock-on-startup-in-linux-mint-in-the-login-window#275475
+    vars:
+      numlock_config: |
+        [Greeter]
+        activate-numlock=true

@@ -32,5 +32,10 @@
     - name: "config kernel parameters"
       import_tasks: config-kernel-parameters.yaml
       tags:
-        - "config-kernel-parameters"        
+        - "config-kernel-parameters"      
+    # TODO: Add zsh terminal configuration [In Progress]    
+    # - name: "install zsh and themes"
+    #   import_tasks: install-zsh.yaml
+    #   tags:
+    #     - "install-zsh"  
 ...

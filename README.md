@@ -22,13 +22,13 @@ ansible --version
 #Activate enviroment (if not is already activated)
 source ~/python_envs/ansible/bin/activate
 export ANSIBLE_HOST_KEY_CHECKING=False
-$ ansible-playbook -i inventory main.yaml --ask-pass --ask-become-pass
+ansible-playbook -i inventory main.yaml --ask-pass --ask-become-pass
 ```
 
 ### Execute Playbook Example specify tags
 ```
 export ANSIBLE_HOST_KEY_CHECKING=False
-$ ansible-playbook -i inventory main.yaml --ask-pass --diff --ask-become-pass --tags=config-kernel-parameters --check
+ansible-playbook -i inventory main.yaml --ask-pass --diff --ask-become-pass --tags=config-kernel-parameters --check
 ```
 
 
@@ -36,5 +36,5 @@ $ ansible-playbook -i inventory main.yaml --ask-pass --diff --ask-become-pass --
 ### Execute Playbook Example skipping tags
 ```
 export ANSIBLE_HOST_KEY_CHECKING=False
-$ ansible-playbook -i inventory main.yaml --ask-pass --ask-become-pass --skip-tags=install-general-packages,install-vs-code --check
+ansible-playbook -i inventory main.yaml --ask-pass --ask-become-pass --skip-tags=install-general-packages,install-vs-code --check
 ```
