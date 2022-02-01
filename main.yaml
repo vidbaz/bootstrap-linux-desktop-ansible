@@ -21,7 +21,7 @@
       import_tasks: install-cryptomator.yaml
       tags:
         - "install-cryptomator"
-    - name: "Install Signal"
+    - name: "install signal"
       import_tasks: install-signal.yaml
       tags:
         - "install-signal"
@@ -32,7 +32,11 @@
     - name: "config kernel parameters"
       import_tasks: config-kernel-parameters.yaml
       tags:
-        - "config-kernel-parameters"      
+        - "config-kernel-parameters"
+    - name: "install docker ce and compose"
+      import_tasks: install-docker.yaml
+      tags:
+        - "install-docker"    
     # TODO: Add zsh terminal configuration [In Progress]    
     # - name: "install zsh and themes"
     #   import_tasks: install-zsh.yaml

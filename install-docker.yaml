@@ -1,0 +1,49 @@
+---
+  - name: "install-docker: install prerequisites for Docker repository"
+    become: True
+    apt:
+      name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2', 'software-properties-common']
+      update_cache: yes
+
+  - name: "install-docker: add docker gpg key"
+    become: True
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+
+  - name: "install-docker: add docker repository"   # Working for Linux Mint
+    become: True
+    shell: |
+      add-apt-repository \
+      "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+      $(grep "UBUNTU_CODENAME" /etc/os-release | awk -F '=' '{ print $2 }') \
+      stable"
+
+  - name: "install-docker: install docker ce"
+    become: True
+    apt:
+      name: ['docker-ce', 'docker-ce-cli', 'containerd.io']
+      update_cache: yes
+
+  - name: "install-docker: get current user"
+    shell: whoami
+    register: ansible_user
+
+#The below will only work for other users not the current user that you are login therefore add manually in caseof needed
+# sudo usermod -aG docker $USER
+# logout and login
+  # - name: "install-docker: add current user to access docker"
+  #   become: True
+  #   user:
+  #     name: "{{ ansible_user.stdout }}"
+  #     groups: "docker"
+  #     append: True
+
+  - name: "install-docker: create python virtual env" #https://docs.python.org/3/library/venv.html
+    shell: python3 -m venv  ~/python_envs/docker-compose
+
+  - name: "install-docker: install docker-compose"
+    pip:
+      name: docker-compose
+      virtualenv: ~/python_envs/docker-compose
+
+...
