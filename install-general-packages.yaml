@@ -51,6 +51,8 @@
       - numlockx  # Turn on NumLock on startup in Linux Mint in the Login window
       - silversearcher-ag        #string search through a directory hierarchy - ag command 
       - tmux      #terminal multiplexer
+      - graphviz  #to generate diagrams (dot command,etc...)
+      - unrar     #to extract .rar files
 
   - name: "install-general-packages: configure debconf-utils for silent virtuabox-extensions installation"
     become: yes
