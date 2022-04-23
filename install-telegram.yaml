@@ -1,0 +1,14 @@
+---
+
+  - name: "install-telegram: install latest version of telegram"   # Working for Linux Mint
+    become: True
+    shell: |
+      cd ~/Downloads
+      rm tsetup*.tar.xz
+      curl -O -J -L $(curl -s https://api.github.com/repos/telegramdesktop/tdesktop/releases/latest \
+                | grep -Po 'https://github.com/telegramdesktop/tdesktop/releases/download/[^}]*\.tar\.xz' \
+                | uniq)
+      tar -xJvf tsetup*.tar.xz
+      mv Telegram/Telegram /usr/bin/telegram
+      chmod +x /usr/bin/telegram
+      rm -r Telegram
