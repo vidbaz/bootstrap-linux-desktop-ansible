@@ -4,7 +4,7 @@ This are some ansible tasks to automate some packages installation on Linux (Tes
 ### Install virtual env with Python 3
 ```
 sudo apt-get install python3-venv ssh sshpass -y
-sudo mkdir python_envs
+mkdir python_envs
 cd python_envs
 python3 -m venv ansible
 source ~/python_envs/ansible/bin/activate
@@ -21,6 +21,7 @@ ansible --version
 ```
 #Activate enviroment (if not is already activated)
 source ~/python_envs/ansible/bin/activate
+cd bootstrap-linux-desktop-ansible #Ensure that you go to this repo where ansible files are located
 export ANSIBLE_HOST_KEY_CHECKING=False
 ansible-playbook -i inventory main.yaml --ask-pass --ask-become-pass
 ```
