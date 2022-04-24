@@ -21,7 +21,7 @@
   - name: "install-docker: install docker ce"
     become: True
     apt:
-      name: ['docker-ce', 'docker-ce-cli', 'containerd.io']
+      name: ['docker-ce', 'docker-ce-cli', 'containerd.io', 'docker-compose']
       update_cache: yes
 
   - name: "install-docker: get current user"
@@ -37,13 +37,5 @@
   #     name: "{{ ansible_user.stdout }}"
   #     groups: "docker"
   #     append: True
-
-  - name: "install-docker: create python virtual env" #https://docs.python.org/3/library/venv.html
-    shell: python3 -m venv  ~/python_envs/docker-compose
-
-  - name: "install-docker: install docker-compose"
-    pip:
-      name: docker-compose
-      virtualenv: ~/python_envs/docker-compose
 
 ...

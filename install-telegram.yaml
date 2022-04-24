@@ -12,3 +12,5 @@
       mv Telegram/Telegram /usr/bin/telegram
       chmod +x /usr/bin/telegram
       rm -r Telegram
+
+# Lauch telegram in background

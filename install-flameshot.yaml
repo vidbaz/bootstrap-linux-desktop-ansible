@@ -5,23 +5,23 @@
     become: True
     shell: |
       cd /usr/bin/
-      rm Flameshot-*-x86_64.AppImage
       curl -O -J -L $(curl -s https://api.github.com/repos/flameshot-org/flameshot/releases/latest \
                 | grep -Po 'https://github.com/flameshot-org/flameshot/releases/download/[^}]*\.AppImage' \
                 | uniq)
-      chmod +x Flameshot-*-x86_64.AppImage
+      mv /usr/bin/Flameshot-* /usr/bin/flameshot
+      chmod +x /usr/bin/flameshot
 
   - name: "install-flameshot: create autostartup entry and configuration"   # Working for Linux Mint
     copy:
       content: "{{ flameshot_init }}"
-      dest: "~/.config/pulse/daemon.conf"
+      dest: "~/.config/flameshot.ini"
     vars:
       flameshot_init: |
         [General]
         contrastOpacity=188
         filenamePattern=%Y%m%d_Screen_Linux-%H%M%S
         saveAfterCopy=true
-        savePath=~/Pictures
+        savePath=/home/{{ ansible_user_id }}/Pictures
         savePathFixed=false
         startupLaunch=true
         useJpgForClipboard=false

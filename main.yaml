@@ -37,6 +37,19 @@
       import_tasks: install-docker.yaml
       tags:
         - "install-docker"    
+    - name: "install flameshot"
+      import_tasks: install-flameshot.yaml
+      tags:
+        - "install-flameshot" 
+    - name: "install telegram"
+      import_tasks: install-telegram.yaml
+      tags:
+        - "install-telegram" 
+    - name: "install joplin"
+      import_tasks: install-joplin.yaml
+      tags:
+        - "install-joplin" 
+        
     # TODO: Add zsh terminal configuration [In Progress]    
     # - name: "install zsh and themes"
     #   import_tasks: install-zsh.yaml
