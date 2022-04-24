@@ -1,0 +1,6 @@
+---
+# Details https://joplinapp.org/help/#desktop-applications
+  - name: "install-Joplin: install latest version of Joplin"   # Working for Linux Mint
+    shell: |
+      cd ~/Downloads
+      wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash
