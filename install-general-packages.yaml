@@ -16,11 +16,11 @@
       update_cache: yes
       state: latest
     with_items:
-      - software-properties-common
+      - software-properties-common  #This software provides an abstraction of the used apt repositories. It allows you to easily manage your distribution and independent software vendor software sources.
       - curl
       - sendmail
       - git
-      - nethogs
+      - nethogs     # Monitor Linux Network Traffic Usage Per Process
       - nmap
       - openssh-server
       - net-tools
@@ -52,6 +52,7 @@
       - tmux        #terminal multiplexer
       - graphviz    #to generate diagrams (dot command,etc...)
       - unrar       #to extract .rar files
+      - awscli      # Install Amazon Web Services Cli
 
   - name: "install-general-packages: configure debconf-utils for silent virtuabox-extensions installation"
     become: yes

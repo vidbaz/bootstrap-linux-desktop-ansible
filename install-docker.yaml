@@ -24,10 +24,6 @@
       name: ['docker-ce', 'docker-ce-cli', 'containerd.io', 'docker-compose']
       update_cache: yes
 
-  - name: "install-docker: get current user"
-    shell: whoami
-    register: ansible_user
-
 #The below will only work for other users not the current user that you are login therefore add manually in caseof needed
 # sudo usermod -aG docker $USER
 # logout and login

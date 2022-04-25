@@ -11,8 +11,63 @@
       - git
       - zsh
       - ruby-full
-      
-  - name: "install-zsh: set as default shell"
-    shell: "chsh -s $(which zsh)"
+
+  - name: "install-zsh: create fonts directory"
+    file:
+      path: "/home/{{ ansible_user_id }}/.fonts"
+      state: directory
+      owner: "{{ ansible_user_id }}"
+      mode: '0755'
+
+# TODO: change from /home/{{ ansible_user_id }}/.fonts to ~/.local/share/fonts or /usr/local/share/fonts
+# More info: /etc/fonts/font.conf and here: https://linuxconfig.org/how-to-install-and-manage-fonts-on-linux
+  - name: "install-zsh: dowload fonts from powerlevel10k recommendations" # https://github.com/romkatv/powerlevel10k/blob/master/font.md
+    get_url:
+      url: "{{ item }}"
+      dest: "/home/{{ ansible_user_id }}/.fonts"    # https://askubuntu.com/questions/3697/how-do-i-install-fonts
+      mode: "2775"
+    with_items:
+      - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"
+      - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf"
+      - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"
+      - "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
+    register: fonts_dowloaded
+
+  - name: "install-zsh: reset font cache"
+    shell: fc-cache -f -v
+    when: fonts_dowloaded.changed
+
+  - name: "install-zsh: check that fonts were installed [shell: fc-list | grep Meslo]"
+    shell: fc-list | grep Meslo
     check_mode: no
+    register: shell_result
+
+  - name: "install-zsh: display fonts details [ATENTION] if there is no result check becuase fonts were installed"
+    debug:
+      var: shell_result.stdout_lines
+
+  # Check if powerleve10k is already installed
+  - name: "install-zsh: check if powerleve10k is already installed"
+    find:
+      paths: "~/powerlevel10k"
+    register: filesFound
+
+  - name: "install-zsh: display fonts details [ATENTION] if there is no result check becuase fonts were installed"
+    debug:
+      var: filesFound.matched
+
+  # git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+  # echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+  # info here: https://github.com/romkatv/powerlevel10k#manual
+  - name: "install-zsh: clone powerlevel10k theme from github"
+    git:
+      repo: https://github.com/romkatv/powerlevel10k.git
+      dest: "~/powerlevel10k"
+      depth: 1
+    when: filesFound.matched == 0
+      
+  # - name: "install-zsh: set as default shell"
+  #   shell: "chsh -s $(which zsh)"
+    
+
 ...
