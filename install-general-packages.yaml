@@ -49,9 +49,9 @@
       - vagrant     # Virtualization
       - numlockx    # Turn on NumLock on startup in Linux Mint 20 in the Login window
       - silversearcher-ag        #string search through a directory hierarchy - ag command 
-      - tmux        #terminal multiplexer
-      - graphviz    #to generate diagrams (dot command,etc...)
-      - unrar       #to extract .rar files
+      - tmux        # terminal multiplexer
+      - graphviz    # to generate diagrams (dot command,etc...)
+      - unrar       # to extract .rar files
       - awscli      # Install Amazon Web Services Cli
 
   - name: "install-general-packages: configure debconf-utils for silent virtuabox-extensions installation"
