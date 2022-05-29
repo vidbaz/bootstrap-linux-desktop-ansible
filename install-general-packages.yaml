@@ -53,6 +53,7 @@
       - graphviz    # to generate diagrams (dot command,etc...)
       - unrar       # to extract .rar files
       - awscli      # Install Amazon Web Services Cli
+      - vlc         # Media player
 
   - name: "install-general-packages: configure debconf-utils for silent virtuabox-extensions installation"
     become: yes
