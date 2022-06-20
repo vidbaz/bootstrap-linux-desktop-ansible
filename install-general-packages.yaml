@@ -1,19 +1,12 @@
 ---
 
-  - name: "install-general-packages: Update the apt package index"
-    become: yes
-    apt:
-      name: "*"
-      state: latest
-      update_cache: yes
-      force_apt_get: yes
-
   - name: "install-general-packages: install basic packages"
     become: yes
     apt:
       name: "{{ item }}"
       force_apt_get: yes
       update_cache: yes
+      cache_valid_time: 7200
       state: latest
     with_items:
       - software-properties-common  #This software provides an abstraction of the used apt repositories. It allows you to easily manage your distribution and independent software vendor software sources.
@@ -53,6 +46,7 @@
       - graphviz    # to generate diagrams (dot command,etc...)
       - unrar       # to extract .rar files
       - awscli      # Install Amazon Web Services Cli
+      - okular      # Pdf reader KDE, wich has annotations and other stuff
 
   - name: "install-general-packages: configure debconf-utils for silent virtuabox-extensions installation"
     become: yes
