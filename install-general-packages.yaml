@@ -47,6 +47,7 @@
       - unrar       # to extract .rar files
       - awscli      # Install Amazon Web Services Cli
       - okular      # Pdf reader KDE, wich has annotations and other stuff
+      - vlc         # Media player
 
   - name: "install-general-packages: configure debconf-utils for silent virtuabox-extensions installation"
     become: yes
