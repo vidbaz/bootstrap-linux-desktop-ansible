@@ -1,16 +1,35 @@
+# https://www.linuxcapable.com/how-to-install-brave-browser-on-linux-mint-20/
 ---
 
-  - name: "install-brave: add key from google"
+  - name: "install-brave: install packages needed"
+    become: yes
+    apt:
+      name: "{{ item }}"
+      force_apt_get: yes
+      update_cache: yes
+      cache_valid_time: 7200
+      state: latest
+    with_items:
+      - software-properties-common 
+      - apt-transport-https 
+      - wget 
+      - ca-certificates 
+      - gnupg2
+  - name: "install-brave: add key from brave"
     become: yes
     apt_key:
-      url: https://dl.google.com/linux/linux_signing_key.pub
+      url: "{{ item }}"
       state: present
+    with_items:
+    - "https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg" # Import Brave Browser Stable (Recommended)
+    - "https://brave-browser-apt-beta.s3.brave.com/brave-browser-beta-archive-keyring.gpg" # Import Brave Browser Beta
+    - "https://brave-browser-apt-nightly.s3.brave.com/brave-browser-nightly-archive-keyring.gpg" # Import Brave Browser Nightly
   - name: "install-brave: add official repo"
     become: yes
     apt_repository:
-      repo: "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main"
+      repo: "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"
       state: present
-      filename: "google-chrome"
+      filename: "brave-browser"
   - name: "install-brave: index new repo into the cache"
     become: yes
     apt:
@@ -21,7 +40,7 @@
   - name: "install-brave: install"
     become: yes
     apt:
-      name: "google-chrome-stable"
+      name: "brave-browser"
       state: latest
 
 ...
