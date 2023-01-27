@@ -2,7 +2,7 @@
 ---
 
   - name: "install-brave: install packages needed"
-    become: true
+    become: yes
     apt:
       name: "{{ item }}"
       force_apt_get: true
@@ -16,7 +16,7 @@
       - ca-certificates 
       - gnupg2
   - name: "install-brave: add key from brave"
-    become: true
+    become: yes
     apt_key:
       url: "{{ item }}"
       state: present
@@ -25,20 +25,20 @@
     - "https://brave-browser-apt-beta.s3.brave.com/brave-browser-beta-archive-keyring.gpg" # Import Brave Browser Beta
     - "https://brave-browser-apt-nightly.s3.brave.com/brave-browser-nightly-archive-keyring.gpg" # Import Brave Browser Nightly
   - name: "install-brave: add official repo"
-    become: true
+    become: yes
     apt_repository:
       repo: "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"
       state: present
       filename: "brave-browser"
   - name: "install-brave: index new repo into the cache"
-    become: true
+    become: yes
     apt:
       name: "*"
       state: latest
       update_cache: true
       force_apt_get: true
   - name: "install-brave: install"
-    become: true
+    become: yes
     apt:
       name: "brave-browser"
       state: latest
