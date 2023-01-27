@@ -1,7 +1,7 @@
 ---
   - name: "config-pulse-audio: check byte order"
     shell: lscpu | grep 'Byte Order'
-    check_mode: no
+    check_mode: false
     register: shell_result
   - name: "config-pulse-audio: display byte order"
     debug:
@@ -30,7 +30,7 @@
         rlimit-rtprio = 9
         daemonize = no
   - name: "config-pulse-audio: configure alsa"
-    become: yes
+    become: true
     copy:
       content: "{{ alsa_config }}"
       dest: "/usr/share/alsa/pulse-alsa.conf"
@@ -44,9 +44,7 @@
   - name: "config-pulse-audio: restart pulse audio"
     systemd:
       state: restarted
-      daemon_reload: yes
+      daemon_reload: true
       name: pulseaudio
       scope: user
-
-
 ...
