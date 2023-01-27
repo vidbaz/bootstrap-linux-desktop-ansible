@@ -3,7 +3,7 @@
     become: True
     apt:
       name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2', 'software-properties-common']
-      update_cache: yes
+      update_cache: true
 
   - name: "install-docker: add docker gpg key"
     become: True
@@ -22,7 +22,7 @@
     become: True
     apt:
       name: ['docker-ce', 'docker-ce-cli', 'containerd.io', 'docker-compose']
-      update_cache: yes
+      update_cache: true
 
 #The below will only work for other users not the current user that you are login therefore add manually in caseof needed
 # sudo usermod -aG docker $USER
