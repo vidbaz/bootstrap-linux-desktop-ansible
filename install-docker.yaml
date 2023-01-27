@@ -1,17 +1,17 @@
 ---
   - name: "install-docker: install prerequisites for Docker repository"
-    become: True
+    become: true
     apt:
       name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2', 'software-properties-common']
       update_cache: true
 
   - name: "install-docker: add docker gpg key"
-    become: True
+    become: true
     apt_key:
       url: https://download.docker.com/linux/ubuntu/gpg
 
   - name: "install-docker: add docker repository"   # Working for Linux Mint
-    become: True
+    become: true
     shell: |
       add-apt-repository \
       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
@@ -19,7 +19,7 @@
       stable"
 
   - name: "install-docker: install docker ce"
-    become: True
+    become: true
     apt:
       name: ['docker-ce', 'docker-ce-cli', 'containerd.io', 'docker-compose']
       update_cache: true
@@ -28,10 +28,10 @@
 # sudo usermod -aG docker $USER
 # logout and login
   # - name: "install-docker: add current user to access docker"
-  #   become: True
+  #   become: true
   #   user:
   #     name: "{{ ansible_user.stdout }}"
   #     groups: "docker"
-  #     append: True
+  #     append: true
 
 ...
