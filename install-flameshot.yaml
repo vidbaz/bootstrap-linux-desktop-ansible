@@ -1,30 +1,30 @@
 # Flameshot is quite powerful tool for schreenshot taking on Linux
 # Latest version allow to capture and save automatically to a folder and clipboard which is usefull
 ---
-  - name: "install-flameshot: install latest version of flameshot"   # Working for Linux Mint
-    become: True
-    shell: |
-      cd /usr/bin/
-      curl -O -J -L $(curl -s https://api.github.com/repos/flameshot-org/flameshot/releases/latest \
-                | grep -Po 'https://github.com/flameshot-org/flameshot/releases/download/[^}]*\.AppImage' \
-                | uniq)
-      mv /usr/bin/Flameshot-* /usr/bin/flameshot
-      chmod +x /usr/bin/flameshot
+- name: "install-flameshot: install latest version of flameshot"   # Working for Linux Mint
+  become: true
+  shell: |
+    cd /usr/bin/
+    curl -O -J -L $(curl -s https://api.github.com/repos/flameshot-org/flameshot/releases/latest \
+              | grep -Po 'https://github.com/flameshot-org/flameshot/releases/download/[^}]*\.AppImage' \
+              | uniq)
+    mv /usr/bin/Flameshot-* /usr/bin/flameshot
+    chmod +x /usr/bin/flameshot
 
-  - name: "install-flameshot: create autostartup entry and configuration"   # Working for Linux Mint
-    copy:
-      content: "{{ flameshot_init }}"
-      dest: "~/.config/flameshot.ini"
-    vars:
-      flameshot_init: |
-        [General]
-        contrastOpacity=188
-        filenamePattern=%Y%m%d_Screen_Linux-%H%M%S
-        saveAfterCopy=true
-        savePath=/home/{{ ansible_user_id }}/Pictures
-        savePathFixed=false
-        startupLaunch=true
-        useJpgForClipboard=false
+- name: "install-flameshot: create autostartup entry and configuration"   # Working for Linux Mint
+  copy:
+    content: "{{ flameshot_init }}"
+    dest: "~/.config/flameshot.ini"
+  vars:
+    flameshot_init: |
+      [General]
+      contrastOpacity=188
+      filenamePattern=%Y%m%d_Screen_Linux-%H%M%S
+      saveAfterCopy=true
+      savePath=/home/{{ ansible_user_id }}/Pictures
+      savePathFixed=false
+      startupLaunch=true
+      useJpgForClipboard=false
 
 ## IF you need to configure shortcuts
 ## Create a custom Keyboard with the following command

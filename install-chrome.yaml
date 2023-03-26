@@ -1,18 +1,18 @@
 ---
 
   - name: "install-chrome: add key from google"
-    become: yes
+    become: true
     apt_key:
       url: https://dl.google.com/linux/linux_signing_key.pub
       state: present
   - name: "install-chrome: add official repo"
-    become: yes
+    become: true
     apt_repository:
       repo: "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main"
       state: present
       filename: "google-chrome"
   - name: "install-chrome: install"
-    become: yes
+    become: true
     apt:
       name: "google-chrome-stable"
       state: latest

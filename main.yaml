@@ -13,6 +13,10 @@
       import_tasks: install-chrome.yaml
       tags:
         - "install-chrome"
+    - name: "Install Brave browser"
+      import_tasks: install-brave.yaml
+      tags:
+        - "install-brave"
     - name: "Install Surfshark Openvpn profiles"
       import_tasks: install-surfshark.yaml
       tags:

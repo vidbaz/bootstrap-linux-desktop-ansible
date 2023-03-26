@@ -3,11 +3,11 @@
 # Ref: https://www.xmodulo.com/disable-ipv6-linux.html
 
 - name: "config-kernel-parameters: copy configuration file"
-  become: True
+  become: true
   sysctl:
     name: "{{ item['name'] }}"
     value: "{{ item['value'] }}"
-    reload: True
+    reload: true
     state: "present"
   with_items: "{{ kernel_parameters }}"
   vars:
@@ -18,5 +18,4 @@
         value: 1
       - name: "net.ipv6.conf.lo.disable_ipv6"
         value: 1
-
 ...

@@ -1,52 +1,50 @@
 ---
-  - name: "config-pulse-audio: check byte order"
-    shell: lscpu | grep 'Byte Order'
-    check_mode: no
-    register: shell_result
-  - name: "config-pulse-audio: display byte order"
-    debug:
-      var: shell_result.stdout_lines
-  - name: "config-pulse-audio: copy configuration file"
-    copy:
-      content: "{{ daemon_config }}"
-      dest: "~/.config/pulse/daemon.conf"
-    vars:
-      daemon_config: |
-        # Ansible Config https://medium.com/@gamunu/enable-high-quality-audio-on-linux-6f16f3fe7e1f
-        default-sample-format = float32le   # Byte Order:          Little Endian
-        default-sample-rate = 48000
-        alternate-sample-rate = 44100
-        default-sample-channels = 2
-        default-channel-map = front-left,front-right
-        default-fragments = 2
-        default-fragment-size-msec = 125
-        resample-method = soxr-vhq
-        remixing-produce-lfe=no
-        remixing-consume-lfe=no
-        high-priority = yes
-        nice-level = -11
-        realtime-scheduling = yes
-        realtime-priority = 9
-        rlimit-rtprio = 9
-        daemonize = no
-  - name: "config-pulse-audio: configure alsa"
-    become: yes
-    copy:
-      content: "{{ alsa_config }}"
-      dest: "/usr/share/alsa/pulse-alsa.conf"
-    vars:
-      alsa_config: |
-        # Use PulseAudio plugin hw
-        pcm.!default {
-          type plug
-          slave.pcm hw
-        }
-  - name: "config-pulse-audio: restart pulse audio"
-    systemd:
-      state: restarted
-      daemon_reload: yes
-      name: pulseaudio
-      scope: user
-
-
+- name: "config-pulse-audio: check byte order"
+  shell: lscpu | grep 'Byte Order'
+  check_mode: false
+  register: shell_result
+- name: "config-pulse-audio: display byte order"
+  debug:
+    var: shell_result.stdout_lines
+- name: "config-pulse-audio: copy configuration file"
+  copy:
+    content: "{{ daemon_config }}"
+    dest: "~/.config/pulse/daemon.conf"
+  vars:
+    daemon_config: |
+      # Ansible Config https://medium.com/@gamunu/enable-high-quality-audio-on-linux-6f16f3fe7e1f
+      default-sample-format = float32le   # Byte Order:          Little Endian
+      default-sample-rate = 48000
+      alternate-sample-rate = 44100
+      default-sample-channels = 2
+      default-channel-map = front-left,front-right
+      default-fragments = 2
+      default-fragment-size-msec = 125
+      resample-method = soxr-vhq
+      remixing-produce-lfe=no
+      remixing-consume-lfe=no
+      high-priority = yes
+      nice-level = -11
+      realtime-scheduling = yes
+      realtime-priority = 9
+      rlimit-rtprio = 9
+      daemonize = no
+- name: "config-pulse-audio: configure alsa"
+  become: true
+  copy:
+    content: "{{ alsa_config }}"
+    dest: "/usr/share/alsa/pulse-alsa.conf"
+  vars:
+    alsa_config: |
+      # Use PulseAudio plugin hw
+      pcm.!default {
+        type plug
+        slave.pcm hw
+      }
+- name: "config-pulse-audio: restart pulse audio"
+  systemd:
+    state: restarted
+    daemon_reload: true
+    name: pulseaudio
+    scope: user
 ...

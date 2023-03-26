@@ -1,0 +1,44 @@
+# https://www.linuxcapable.com/how-to-install-brave-browser-on-linux-mint-20/
+---
+- name: "install-brave: install packages needed"
+  become: true
+  apt:
+    name: "{{ item }}"
+    force_apt_get: true
+    update_cache: true
+    cache_valid_time: 7200
+    state: latest
+  with_items:
+    - software-properties-common 
+    - apt-transport-https 
+    - wget 
+    - ca-certificates 
+    - gnupg2
+- name: "install-brave: add key from brave"
+  become: true
+  apt_key:
+    url: "{{ item }}"
+    state: present
+  with_items:
+  - "https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg" # Import Brave Browser Stable (Recommended)
+  - "https://brave-browser-apt-beta.s3.brave.com/brave-browser-beta-archive-keyring.gpg" # Import Brave Browser Beta
+  - "https://brave-browser-apt-nightly.s3.brave.com/brave-browser-nightly-archive-keyring.gpg" # Import Brave Browser Nightly
+- name: "install-brave: add official repo"
+  become: true
+  apt_repository:
+    repo: "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"
+    state: present
+    filename: "brave-browser"
+- name: "install-brave: index new repo into the cache"
+  become: true
+  apt:
+    name: "*"
+    state: latest
+    update_cache: true
+    force_apt_get: true
+- name: "install-brave: install"
+  become: true
+  apt:
+    name: "brave-browser"
+    state: latest
+...
