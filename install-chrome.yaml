@@ -11,17 +11,11 @@
       repo: "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main"
       state: present
       filename: "google-chrome"
-  - name: "install-chrome: index new repo into the cache"
-    become: yes
-    apt:
-      name: "*"
-      state: latest
-      update_cache: yes
-      force_apt_get: yes
   - name: "install-chrome: install"
     become: yes
     apt:
       name: "google-chrome-stable"
       state: latest
+      update_cache: yes
 
 ...

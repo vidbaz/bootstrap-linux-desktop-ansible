@@ -54,6 +54,7 @@
       - unrar       # to extract .rar files
       - awscli      # Install Amazon Web Services Cli
       - vlc         # Media player
+      - keepassxc   # password manager
 
   - name: "install-general-packages: configure debconf-utils for silent virtuabox-extensions installation"
     become: yes

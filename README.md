@@ -17,21 +17,32 @@ pip install ansible
 ansible --version
 ```
 
-### Execute Playbook Example
+### Example: Playbook Execution
 ```
 #Activate enviroment (if not is already activated)
 source ~/python_envs/ansible/bin/activate
-cd bootstrap-linux-desktop-ansible #Ensure that you go to this repo where ansible files are located
+#Ensure that you go to this repo where ansible files are located
+cd bootstrap-linux-desktop-ansible 
 export ANSIBLE_HOST_KEY_CHECKING=False
-ansible-playbook -i inventory main.yaml --ask-pass --ask-become-pass
+#Check first
+ansible-playbook -i inventory main.yaml --ask-pass --ask-become-pass --check --diff
+#Apply
+ansible-playbook -i inventory main.yaml --ask-pass --ask-become-pass --diff
 ```
 
-### Execute Playbook Example specify tags
+### Example: Execute Playbook with specify tags
 ```
+#Activate enviroment (if not is already activated)
 source ~/python_envs/ansible/bin/activate
 ansible-playbook -i inventory main.yaml --ask-pass --diff --ask-become-pass --tags=config-kernel-parameters --check
 ```
 
+### Example: Specific Machines
+
+```
+source ~/python_envs/ansible/bin/activate
+ansible-playbook -i inventory main.yaml --ask-pass --ask-become-pass --limit=ets  -u ets --check --diff --tags=install-chrome
+```
 
 
 ### Execute Playbook Example skipping tags
