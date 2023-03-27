@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+import os
+import subprocess
+
+def run_command(command):
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    stdout, stderr = process.communicate()
+    return process.returncode, stdout, stderr
+
+# Git commands
+os.chdir('{{ user_home }}')
+run_command('git clone {{ github_repo }}')
+run_command('git fetch')
+run_command('git checkout origin/main')
+run_command('git git pull')
+run_command('git-crypt unlock')
+
+for file in {{ files_to_sync|to_json }}:
+    run_command(f'git add {file}')
+
+run_command('git commit -m "Sync files"')
+run_command('git push origin main')
+
+run_command('git-crypt lock')

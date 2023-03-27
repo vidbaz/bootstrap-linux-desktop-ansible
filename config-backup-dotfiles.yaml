@@ -1,0 +1,67 @@
+---
+# - name: Basic usage
+#   ansible.builtin.debug:
+#     msg: "'{{ lookup('ansible.builtin.env', 'HOME') }}' is the HOME environment variable."
+- name: "Ansible Playbook for Platform, Python Script, and Cron Job"
+  gather_facts: True
+  hosts: all
+  vars:
+    gpg_key_id: "{{ lookup('env', 'GPG_KEY_ID') }}"
+    github_repo: "{{ lookup('env', 'GITHUB_REPO') }}"
+    user_home: "{{ lookup('env', 'HOME') }}"
+    repo_dir: "{{ user_home }}/dotfiles"
+    files_to_sync:
+      - ".zsh_history"
+      - ".gitconfig"
+  tasks:
+    - name: Task 1 - Identify platform and save it in a fact
+      set_fact:
+        platform: "{{ ansible_system }}"
+
+    - name: Task 2 - Create Python script for syncing files to GitHub with git-crypt
+      template:
+        src: "templates/sync_files_to_github.py.j2"
+        dest: "{{ user_home }}/.config/sync_files_to_github.py"
+        mode: 0755
+
+    # - name: Task 3 - Configure git-crypt with GPG key
+    #   block:
+    #     - name: Clone a github repository
+    #       git:
+    #         repo: "{{ github_repo }}"
+    #         dest: " {{ repo_dir }}"
+    #         key_file: /root/.ssh/github
+    #         accept_hostkey: yes
+    #         force: yes
+    #         clone: True
+    #         update: True
+                  
+    #     - name: Initialize git-crypt
+    #       command: git-crypt init
+    #       args:
+    #         chdir: "{{ repo_dir }}"
+    #       tags:
+    #         - git-crypt
+
+    #     - name: Add GPG key to git-crypt
+    #       command: git-crypt add-gpg-user {{ gpg_key_id }}
+    #       args:
+    #         chdir: "{{ repo_dir }}"
+    #       tags:
+    #         - git-crypt
+
+    #     - name: Commit .git-crypt directory
+    #       git:
+    #         repo: "{{ github_repo }}"
+    #         path: /home
+    #         msg: "Add GPG key to git-crypt"
+    #         add: .git-crypt
+    #       tags:
+    #         - git-crypt
+
+    # - name: Task 4 - Create a cron job that executes the script every one minute
+    #   cron:
+    #     name: Sync files to GitHub with git-crypt
+    #     minute: "*"
+    #     job: "/usr/local/bin/sync_files_to_github.py"
+    #     user: "{{ ansible_user }}"

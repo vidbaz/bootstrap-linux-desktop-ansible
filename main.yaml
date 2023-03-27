@@ -53,7 +53,15 @@
       import_tasks: install-joplin.yaml
       tags:
         - "install-joplin" 
-        
+        - "update-joplin"
+
+    # TODO: Add automatic dotfiles backup [In Progress]    
+    # - name: "config backup dotfiles"
+    #   import_tasks: config-backup-dotfiles.yaml
+    #   tags:
+    #     - "always" 
+    #     - "config-backup-dofiles"
+
     # TODO: Add zsh terminal configuration [In Progress]    
     # - name: "install zsh and themes"
     #   import_tasks: install-zsh.yaml

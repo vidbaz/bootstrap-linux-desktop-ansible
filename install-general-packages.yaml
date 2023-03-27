@@ -7,11 +7,13 @@
     update_cache: true
     cache_valid_time: 7200
     state: latest
+    autoremove: true
   with_items:
     - software-properties-common  #This software provides an abstraction of the used apt repositories. It allows you to easily manage your distribution and independent software vendor software sources.
     - curl
     - sendmail
     - git
+    - git-crypt   #git encryption repo tool
     - nethogs     # Monitor Linux Network Traffic Usage Per Process
     - nmap
     - openssh-server
