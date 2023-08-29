@@ -1,0 +1,20 @@
+---
+  - name: "install-anydesk: Install our official public software signing key"
+    become: yes
+    shell: |
+      wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
+  - name: "install-anydesk: add official repo"
+    become: yes
+    apt_repository:
+      repo: "deb http://deb.anydesk.com/ all main"
+      state: present
+      update_cache: yes
+      filename: anydesk
+  - name: "install-anydesk: install"
+    ignore_errors: "{{ ansible_check_mode }}"
+    become: yes
+    apt:
+      name: "anydesk"
+      state: latest
+
+...

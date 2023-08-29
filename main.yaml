@@ -54,7 +54,10 @@
       tags:
         - "install-joplin" 
         - "update-joplin"
-
+    - name: "install anydesk"
+      import_tasks: install-anydesk.yaml
+      tags:
+        - "install-anydesk"
     # TODO: Add automatic dotfiles backup [In Progress]    
     # - name: "config backup dotfiles"
     #   import_tasks: config-backup-dotfiles.yaml
